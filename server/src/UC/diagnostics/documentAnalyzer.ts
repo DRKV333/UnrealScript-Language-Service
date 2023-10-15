@@ -1466,9 +1466,11 @@ export class DocumentAnalyzer extends DefaultSymbolWalker<void> {
 
         // Calc if not cached already
         let requiredParamsCount = symbol.requiredParamsCount ?? 0;
-        if (typeof symbol.requiredParamsCount === 'undefined') for (; requiredParamsCount < symbol.params.length; ++requiredParamsCount) {
-            if (symbol.params[requiredParamsCount].hasAnyModifierFlags(ModifierFlags.Optional)) {
-                break;
+        if (typeof symbol.requiredParamsCount === 'undefined') {
+            while (requiredParamsCount < symbol.params.length) {
+                if (symbol.params[requiredParamsCount].hasAnyModifierFlags(ModifierFlags.Optional))
+                    break;
+                requiredParamsCount++;
             }
 
             symbol.requiredParamsCount = requiredParamsCount;
