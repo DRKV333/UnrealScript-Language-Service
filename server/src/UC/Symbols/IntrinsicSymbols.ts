@@ -8,6 +8,7 @@ import {
     StaticIntType,
     StaticMetaType,
     StaticNameType,
+    StaticObjectType,
     StaticRangeType,
     StaticRotatorType,
     StaticVectorType,
@@ -79,9 +80,10 @@ IntrinsicArray.addSymbol(Array_RemoveItemFunction);
 
 const Array_FindFunction = new UCMethodSymbol({ name: toName('Find'), range: DEFAULT_RANGE });
 Array_FindFunction.modifiers |= ModifierFlags.Intrinsic | ModifierFlags.ReadOnly;
-const ItemParam4 = new UCParamSymbol({ name: toName('Value|PropertyName'), range: DEFAULT_RANGE }, DEFAULT_RANGE, StaticMetaType);
+const ItemParam4 = new UCParamSymbol({ name: toName('Value|PropertyName'), range: DEFAULT_RANGE }, DEFAULT_RANGE, StaticNameType);
 Array_FindFunction.addSymbol(ItemParam4);
-const ItemParam5 = new UCParamSymbol({ name: toName('Value'), range: DEFAULT_RANGE }, DEFAULT_RANGE, StaticNameType);
+const ItemParam5 = new UCParamSymbol({ name: toName('Value'), range: DEFAULT_RANGE }, DEFAULT_RANGE, StaticObjectType);
+ItemParam5.modifiers |= ModifierFlags.Optional;
 Array_FindFunction.addSymbol(ItemParam5);
 Array_FindFunction.params = [ItemParam4, ItemParam5];
 IntrinsicArray.addSymbol(Array_FindFunction);
